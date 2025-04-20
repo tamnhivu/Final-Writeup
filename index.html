@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+		<style>
+			h1 {
+				text-align: center;
+			}
+
+			.container {
+				margin: 0 auto;
+				padding: 18 10%;
+			}
+
+			figure {
+				text-align: center;
+			}
+
+			img {
+				display: inline-block;
+			}
+
+			body {
+				font-family: 'Inter', sans-serif;
+			}
+
+            html {
+                font-size: 11.5px;
+            }
+		</style>
+	</head>
+	<body>
+		<div class="container">
+		<h1>Final Project: Mesh Morphing & Animation Toolkit</h1>
+		<div style="text-align: center;">Names: Tamnhi Vu, Brandon Lai, Tara Pande, and Samuel German </div>
+
+		<br>
+
+		<div style = "text-align: center"> Link to webpage: 
+			<br> <a href="https://cal-cs184-student.github.io/hw-webpages-einstein-write-ups/hw4/index.html">https://cal-cs184-student.github.io/hw-webpages-einstein-write-ups/hw4/index.html</a> </div>
+
+		<div style = "text-align: center"> Link to Video: 
+			<br> <a href="https://www.youtube.com/watch?v=bV2DG_qFEog">https://www.youtube.com/watch?v=bV2DG_qFEog</a> </div>
+
+        <div style = "text-align: center"> Link to Slides: 
+            <br> <a href="https://docs.google.com/presentation/d/1rngVR-UcvMoFuPJwmkLfqyWITVZGPm_yzBh-j0uAUo0/edit?usp=sharing">https://docs.google.com/presentation/d/1rngVR-UcvMoFuPJwmkLfqyWITVZGPm_yzBh-j0uAUo0/edit?usp=sharing</a> </div>
+
+		<figure>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table>
+			  <tr>
+				  <td style="text-align: center;">
+					<img src="morphing.gif" width="100px"/>
+					<figcaption>Our goal</figcaption>
+				  </td>
+			  </tr>
+			</table>
+		</div>
+		</figure>
+
+
+		<!--
+		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
+		-->
+
+		<h2>Milestone Report</h2>
+		  Our mesh morphing and animation toolkit, of course, needs a user interface. Currently the user interface, hosted on Github,
+          is able to load a variety of .dae files taken from HW2. These dae files can be presented under a variety of shading parameters
+          (wireframe, flat, smooth, glossy, textured, reflective), and can be rotated and scaled by the user directly with their mouse 
+          in real time. The main backend utilizes three.module.js, which is responsible for creating the PerspectiveCamera, lighting, 
+          renderer, TextureLoader, the various MeshMaterials, and the Scene that the .dae lives in. There are a variety of other 
+          JavaScript files responsible for creating the GUI, ColladaLoader (loads the .dae), and OrbitControls (to control the camera 
+          movements). 
+         <p>
+          Our implementation includes multiple vertex interpolation algorithms for 3D mesh animation. The codebase now features
+          linear interpolation between individual vertices and entire meshes, cubic Bézier curve interpolation for smooth motion 
+          between control points, blend shape interpolation that combines multiple meshes with different weights, Catmull-Rom spline
+          interpolation for smooth keyframe animation, and barycentric interpolation for projecting points onto triangular surfaces. 
+          The linear interpolation function provides the most basic transition between meshes, while Bézier curves offer greater control
+          over the animation path. Blend shapes enable complex facial animations through weighted combinations of expression meshes. The
+          Catmull-Rom spline implementation ensures C1 continuity between keyframes for fluid motion sequences, avoiding the abrupt 
+          transitions that simpler methods might produce. Barycentric coordinates enable point projections onto triangular faces, useful
+          for texture mapping and deformation. These methods collectively provide the foundation for creating fluid animations and 
+          realistic transitions in our 3D animation system.
+         <p>
+          Our mesh processing allows us to form advanced ways for us to handle 3D mesh deformation and alignment. The Bezier curve 
+          allows us to do interpolation for vertex transition, the Laplacian smoothing allows us to get geometry refinement, and 
+          the Iterative Closest Point does the mesh registration. More specifically, the Bezier interpolation lets us have a smooth
+          transition from vertex to vertex between two or more meshes that allows the meshes to blend more seamlessly. The 
+          Laplacian smoothing improves the quality of the mesh by incorporating averaging the vertex position. Our iterative
+          closest point lets us align the original mesh (source) to the final mesh (target) by finding the closest points, 
+          calculating the centroids, and finally doing the transformation. We found this important since we want to be able to 
+          handle mesh registration and shape matching.
+          <p>
+          To refine and smooth triangle meshes, typically edges are split and flipped to add new vertices and faces. We created a 
+          loop subdivision algorithm that has no edge split or flips and which just moves vertices according to the laplacian 
+          fairing, aiming to preserve the underlying topology of the mesh. 
+          <p>
+          Currently, we’ve started to incorporate the vertex interpolation, mesh processing, and topology preservation algorithms
+          into our user interface. The best way to do this so far has been to turn our native algorithms in C into JavaScript, so 
+          that it can be read and used by the main HTML behind the user interface. So far, this is really great progress. Overall,
+          we are still on track to have a toolkit that can animate and morph meshes between .dae files by the final project 
+          deadline since we were able to implement all the algorithms to make a slider that will help one mesh transform to the
+          other. However, we are still trying to figure out how to make our implementations compatible with one another to get 
+          our final result and will update accordingly.
